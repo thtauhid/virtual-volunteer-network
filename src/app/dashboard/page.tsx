@@ -14,7 +14,7 @@ const is_org_or_vol = true;
 const is_org = true;
 
 export default function Dashboard() {
-  if (is_org_or_vol) {
+  if (!is_org_or_vol) {
     return <DashboardPage />;
   }
 
