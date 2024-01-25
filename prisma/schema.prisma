@@ -31,17 +31,17 @@ model User {
 }
 
 model Opportunity {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   title      String
   details    String?
   location   String?
-  start_date DateTime?
-  end_date   DateTime?
-  views      Int       @default(0)
-  is_deleted Boolean   @default(false)
-  is_active  Boolean   @default(true)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  owner      User      @relation(fields: [ownerId], references: [id])
+  start_date DateTime
+  end_date   DateTime
+  views      Int      @default(0)
+  is_deleted Boolean  @default(false)
+  is_active  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  owner      User     @relation(fields: [ownerId], references: [id])
   ownerId    Int
 }
