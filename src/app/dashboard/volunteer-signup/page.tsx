@@ -19,6 +19,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { stringToArray } from "@/lib/string";
 
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { ToastAction } from "@/components/ui/toast";
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -34,7 +38,9 @@ const formSchema = z.object({
 });
 
 export default function VolunteerSignup() {
-  // 1. Define your form.
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,11 +52,35 @@ export default function VolunteerSignup() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await fetch("/api/dashboard/volunteer-signup", {
+      method: "POST",
+      body: JSON.stringify({
+        ...values,
+        interests: stringToArray(values.interests),
+      }),
+    });
+
+    if (result.ok) {
+      toast({
+        title: "Signup Successful",
+        description: "Volunteer Signup Successful",
+      });
+      router.push("/dashboard");
+    } else {
+      toast({
+        title: "Signup Failed",
+        description: "Volunteer Signup Failed",
+        action: (
+          <ToastAction
+            altText="Go To Dashboard"
+            onClick={() => router.push("/dashboard")}
+          >
+            Go To Dashboard
+          </ToastAction>
+        ),
+      });
+    }
   }
 
   return (
