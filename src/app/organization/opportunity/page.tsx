@@ -25,7 +25,11 @@ export default async function OpportunityPage() {
       <p className="px-4">Only active opportunities are shown here.</p>
       <div className="p-4">
         {opportunities.map((opportunity) => (
-          <OpportunityCard key={opportunity.id} {...opportunity} />
+          <OpportunityCard
+            key={opportunity.id}
+            {...opportunity}
+            user_type="organization"
+          />
         ))}
       </div>
     </div>

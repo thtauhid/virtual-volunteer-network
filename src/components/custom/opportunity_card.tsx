@@ -3,7 +3,9 @@ import { Button } from "../ui/button";
 import { Prisma } from "@prisma/client";
 import { formatDateTime } from "@/lib/time";
 
-type Props = Prisma.OpportunityGetPayload<{}>;
+type Props = Prisma.OpportunityGetPayload<{}> & {
+  user_type: string;
+};
 
 export default function OpportunityCard(props: Props) {
   return (
@@ -14,7 +16,7 @@ export default function OpportunityCard(props: Props) {
       <p className="px-4">
         {formatDateTime(props.start_date)} - {formatDateTime(props.end_date)}
       </p>
-      <Link href={"/organization/opportunity/" + props.id}>
+      <Link href={`/${props.user_type}/opportunity/${props.id}`}>
         <Button className="m-4">View Opportunity</Button>
       </Link>
     </div>
