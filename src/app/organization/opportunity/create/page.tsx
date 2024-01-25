@@ -27,6 +27,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -43,7 +46,9 @@ const formSchema = z.object({
 });
 
 export default function CreateOpportunity() {
-  // 1. Define your form.
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,10 +59,34 @@ export default function CreateOpportunity() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await fetch("/api/organization/opportunity", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
+    const resultJson = await result.json();
+
+    if (result.ok) {
+      toast({
+        title: "Opporunity Created",
+        description: "Opporunity Created Successfully",
+      });
+      router.push("/organization/opportunity/" + resultJson.data.id);
+    } else {
+      toast({
+        title: "Failed",
+        description: "Unable to create opportunity",
+        action: (
+          <ToastAction
+            altText="Go To Dashboard"
+            onClick={() => router.push("/organization")}
+          >
+            Go To Dashboard
+          </ToastAction>
+        ),
+      });
+    }
   }
 
   return (
