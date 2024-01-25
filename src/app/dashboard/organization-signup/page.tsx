@@ -17,40 +17,65 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { ToastAction } from "@/components/ui/toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Organization name must be at least 2 characters.",
   }),
-  official_email: z.string().email({
+  email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  official_phone: z.string().refine(validator.isMobilePhone, {
+  phone: z.string().refine(validator.isMobilePhone, {
     message: "Please enter a valid phone number.",
   }),
-
   address: z.string().min(10, {
     message: "Please enter a valid address.",
   }),
 });
 
 export default function OrganizationSignup() {
-  // 1. Define your form.
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      official_email: "",
-      official_phone: "",
+      email: "",
+      phone: "",
       address: "",
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await fetch("/api/dashboard/organization-signup", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
+    if (result.ok) {
+      toast({
+        title: "Signup Successful",
+        description: "Organization Signup Successful",
+      });
+      router.push("/dashboard");
+    } else {
+      toast({
+        title: "Signup Failed",
+        description: "Organization Signup Failed",
+        action: (
+          <ToastAction
+            altText="Go To Dashboard"
+            onClick={() => router.push("/dashboard")}
+          >
+            Go To Dashboard
+          </ToastAction>
+        ),
+      });
+    }
   }
 
   return (
@@ -77,7 +102,7 @@ export default function OrganizationSignup() {
             />
             <FormField
               control={form.control}
-              name="official_email"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Official Email</FormLabel>
@@ -97,7 +122,7 @@ export default function OrganizationSignup() {
             />
             <FormField
               control={form.control}
-              name="official_phone"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>

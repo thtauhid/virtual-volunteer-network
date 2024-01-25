@@ -8,13 +8,28 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
+import { currentUser } from "@clerk/nextjs";
+
+const isRegistered = async (clerkId: string | undefined) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      clerkId,
+    },
+  });
+
+  return !!user;
+};
 
 // TODO: Replace with actual logic
-const is_org_or_vol = true;
 const is_org = false;
 
-export default function Dashboard() {
-  if (is_org_or_vol) {
+export default async function Dashboard() {
+  const user = await currentUser();
+
+  const is_org_or_vol = await isRegistered(user?.id);
+
+  if (!is_org_or_vol) {
     return <DashboardPage />;
   }
 
