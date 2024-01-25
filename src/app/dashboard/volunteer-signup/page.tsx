@@ -66,7 +66,7 @@ export default function VolunteerSignup() {
         title: "Signup Successful",
         description: "Volunteer Signup Successful",
       });
-      router.push("/dashboard");
+      router.push("/volunteer");
     } else {
       toast({
         title: "Signup Failed",

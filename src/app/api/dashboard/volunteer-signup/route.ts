@@ -5,8 +5,6 @@ export async function POST(request: Request) {
   const user = await currentUser();
   const req = await request.json();
 
-  console.log(req);
-
   const result = await prisma.user.create({
     data: {
       clerkId: user?.id,

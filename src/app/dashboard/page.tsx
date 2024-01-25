@@ -11,23 +11,22 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
 
-const isRegistered = async (clerkId: string | undefined) => {
-  const user = await prisma.user.findFirst({
-    where: {
-      clerkId,
-    },
-  });
-
-  return !!user;
-};
-
 // TODO: Replace with actual logic
-const is_org = false;
 
 export default async function Dashboard() {
   const user = await currentUser();
+  const me = await prisma.user.findFirst({
+    where: {
+      clerkId: user?.id,
+    },
+  });
 
-  const is_org_or_vol = await isRegistered(user?.id);
+  // Checks if the user entry actually exists in db.
+  const is_org_or_vol = !!me;
+
+  // Checks if the user is an organization.
+  // If they are not an org, they are a volunteer.
+  const is_org = me?.user_type === "organization";
 
   if (!is_org_or_vol) {
     return <DashboardPage />;

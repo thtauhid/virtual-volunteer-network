@@ -61,7 +61,7 @@ export default function OrganizationSignup() {
         title: "Signup Successful",
         description: "Organization Signup Successful",
       });
-      router.push("/dashboard");
+      router.push("/organization");
     } else {
       toast({
         title: "Signup Failed",
