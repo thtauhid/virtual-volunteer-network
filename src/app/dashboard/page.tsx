@@ -11,7 +11,7 @@ import Link from "next/link";
 
 // TODO: Replace with actual logic
 const is_org_or_vol = true;
-const is_org = true;
+const is_org = false;
 
 export default function Dashboard() {
   if (!is_org_or_vol) {
