@@ -6,13 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.4",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
+    "@planetscale/database": "^1.14.0",
+    "@prisma/adapter-planetscale": "^5.8.1",
+    "@prisma/client": "5.8.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -22,6 +27,7 @@
     "date-fns": "^3.3.1",
     "lucide-react": "^0.314.0",
     "next": "14.1.0",
+    "prisma": "^5.8.1",
     "react": "^18",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18",
