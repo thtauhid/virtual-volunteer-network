@@ -2,17 +2,21 @@ import Card from "@/components/custom/card";
 
 const cards = [
   {
+    title: "All Opportunities",
+    details: "View all your opportunities",
+    number: 12,
+    button: {
+      title: "View",
+      href: "/organization/opportunity",
+    },
+  },
+  {
     title: "Create Opportunity",
     details: "Create a volunteering opportunity",
     button: {
       title: "Create",
       href: "/organization/opportunity/create",
     },
-  },
-  {
-    title: "Manage vol",
-    details: "Manage your volunteers",
-    number: 50,
   },
   {
     title: "Manage organization",
