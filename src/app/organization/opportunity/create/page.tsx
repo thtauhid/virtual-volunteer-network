@@ -3,9 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import validator from "validator";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +26,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -40,12 +38,8 @@ const formSchema = z.object({
   location: z.string().min(2, {
     message: "Please enter a location for the opportunity.",
   }),
-  start_date: z.string().refine((val) => {
-    return validator.isDate(val);
-  }, "Please enter a valid date."),
-  end_date: z.string().refine((val) => {
-    return validator.isDate(val);
-  }, "Please enter a valid date."),
+  start_date: z.date(),
+  end_date: z.date(),
 });
 
 export default function CreateOpportunity() {
@@ -56,8 +50,6 @@ export default function CreateOpportunity() {
       title: "",
       details: "",
       location: "",
-      start_date: "",
-      end_date: "",
     },
   });
 
@@ -103,11 +95,12 @@ export default function CreateOpportunity() {
                   <FormLabel>
                     Details <span className="text-red-500">*</span>
                   </FormLabel>
-                  <ReactQuill
-                    theme="snow"
-                    {...field}
-                    placeholder="Enter some details"
-                  />
+                  <FormControl>
+                    <Textarea
+                      placeholder="We are looking for volunteers to help us with our medical camp. We need volunteers to help with registration, guiding patients, and other tasks."
+                      {...field}
+                    />
+                  </FormControl>
                   <FormDescription>
                     Please enter some details about your opportunity.
                   </FormDescription>
