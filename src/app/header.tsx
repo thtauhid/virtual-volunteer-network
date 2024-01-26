@@ -1,16 +1,52 @@
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import prisma from "@/lib/prisma";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  auth,
+} from "@clerk/nextjs";
 import Link from "next/link";
 
-const links = [
+type Link = {
+  href: string;
+  label: string;
+};
+
+let links = [
   { href: "/", label: "Home" },
-  { href: "/dashboard", label: "Dashboard" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "/posts", label: "Blog" },
+];
+
+const volunteer_links = [
+  { href: "/volunteer", label: "Dashboard" },
+  { href: "/volunteer/opportunity", label: "Opportunities" },
+  { href: "/volunteer/workspaces", label: "Workspaces" },
+];
+
+const organization_links = [
+  { href: "/organization", label: "Dashboard" },
+  { href: "/organization/opportunity", label: "Opportunities" },
+  { href: "/organization/workspaces", label: "Workspaces" },
 ];
 
 export default async function Header() {
+  const { userId } = auth();
+
+  if (userId) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    const isOrganization = user?.user_type === "organization";
+    links = isOrganization ? organization_links : volunteer_links;
+  }
+
   return (
     <div className="bg-gray-600 p-4 flex justify-between items-center">
       <div className="">
@@ -31,9 +67,14 @@ export default async function Header() {
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <SignedOut>
-          <Button>
-            <Link href="/dashboard">Sign In</Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button>
+              <SignInButton mode="modal" />
+            </Button>
+            <Button>
+              <SignUpButton mode="modal" />
+            </Button>
+          </div>
         </SignedOut>
       </div>
     </div>
