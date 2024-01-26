@@ -6,16 +6,12 @@ export async function POST(request: NextRequest) {
   const { userId } = auth();
   const req = await request.json();
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId! },
-  });
-
   const result = await prisma.application.create({
     data: {
       message: req.message,
       applicant: {
         connect: {
-          id: user?.id,
+          id: userId!,
         },
       },
       opportunity: {

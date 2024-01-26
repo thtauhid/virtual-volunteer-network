@@ -9,15 +9,15 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 
 // TODO: Replace with actual logic
 
 export default async function Dashboard() {
-  const user = await currentUser();
+  const user = auth();
   const me = await prisma.user.findFirst({
     where: {
-      clerkId: user?.id,
+      id: user.userId!,
     },
   });
 
