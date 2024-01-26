@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { formatDateTime } from "@/lib/time";
+import Link from "next/link";
 
 interface Props {
   params: {
@@ -30,7 +31,9 @@ export default async function SingleOpportunityPage(props: Props) {
         {formatDateTime(opportunity.end_date)}
       </p>
       <div className="m-4 flex gap-4">
-        <Button className="">Apply</Button>
+        <Link href={`/volunteer/opportunity/${opportunity.id}/apply`}>
+          <Button className="">Apply</Button>
+        </Link>
       </div>
     </div>
   );

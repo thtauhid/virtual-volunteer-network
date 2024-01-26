@@ -28,20 +28,33 @@ model User {
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
   OpportunityCreated Opportunity[]
+  Application        Application[]
 }
 
 model Opportunity {
-  id         Int      @id @default(autoincrement())
-  title      String
-  details    String?
-  location   String?
-  start_date DateTime
-  end_date   DateTime
-  views      Int      @default(0)
-  is_deleted Boolean  @default(false)
-  is_active  Boolean  @default(true)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  owner      User     @relation(fields: [ownerId], references: [id])
-  ownerId    Int
+  id          Int           @id @default(autoincrement())
+  title       String
+  details     String?
+  location    String?
+  start_date  DateTime
+  end_date    DateTime
+  views       Int           @default(0)
+  is_deleted  Boolean       @default(false)
+  is_active   Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  owner       User          @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  Application Application[]
+}
+
+model Application {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  applicant     User        @relation(fields: [applicantId], references: [id])
+  applicantId   Int
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id])
+  opportunityId Int
+  message       String?
 }
