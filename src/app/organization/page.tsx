@@ -19,11 +19,16 @@ const cards = [
     },
   },
   {
-    title: "Manage organization",
-    details: "Manage your organization",
-    number: 50,
+    title: "Applications",
+    details: "View all applications",
+    // number: 50,
+    button: {
+      title: "View",
+      href: "/organization/applications",
+    },
   },
 ];
+
 export default function OrganizationDashboard() {
   return (
     <div className="border m-4 p-4">
