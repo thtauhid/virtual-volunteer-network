@@ -1,13 +1,13 @@
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 
 export async function POST(request: Request) {
-  const user = await currentUser();
+  const { userId } = auth();
   const req = await request.json();
 
   const result = await prisma.user.create({
     data: {
-      clerkId: user?.id,
+      clerkId: userId,
       user_type: "organization",
       ...req,
     },

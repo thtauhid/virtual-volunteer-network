@@ -1,12 +1,12 @@
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 
 export async function POST(request: Request) {
-  const clear_user = await currentUser();
+  const { userId } = auth();
   const req = await request.json();
 
   const user = await prisma.user.findUnique({
-    where: { clerkId: clear_user?.id },
+    where: { clerkId: userId! },
   });
 
   const result = await prisma.opportunity.create({
