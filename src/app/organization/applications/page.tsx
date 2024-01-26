@@ -5,15 +5,9 @@ import Table from "./table";
 export default async function Applications() {
   const { userId } = auth();
 
-  const user = await prisma.user.findUnique({
-    where: {
-      clerkId: userId!,
-    },
-  });
-
   const opportunities = await prisma.opportunity.findMany({
     where: {
-      ownerId: user?.id,
+      ownerId: userId!,
       is_deleted: false,
     },
     include: {
@@ -21,7 +15,6 @@ export default async function Applications() {
     },
   });
 
-  console.log(opportunities);
   return (
     <div className="border p-4 m-4">
       <h1>Applications</h1>
