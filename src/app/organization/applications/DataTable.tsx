@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Prisma } from "@prisma/client";
+import Link from "next/link";
 
 type Props = {
   data: Prisma.OpportunityGetPayload<{
@@ -45,7 +46,9 @@ export default function DataTable(props: Props) {
                   {opportunity.is_active ? "Active" : "Inactive"}
                 </TableCell>
                 <TableCell className="text-center">
-                  <Button>View</Button>
+                  <Link href={`/organization/applications/${opportunity.id}`}>
+                    <Button>View</Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             );

@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
-import Table from "./table";
+import Table from "./DataTable";
 
 export default async function Applications() {
   const { userId } = auth();
