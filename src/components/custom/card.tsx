@@ -20,7 +20,7 @@ export default function Card(props: Props) {
           <div className="border rounded-full p-2">{props.number}</div>
         )}
       </div>
-      <p className="p-4">{props.details}</p>
+      <p className="px-4 pb-4">{props.details}</p>
       {props.button && (
         <Link href={props.button.href} className="px-4">
           <Button>{props.button.title}</Button>

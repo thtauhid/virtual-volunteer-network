@@ -1,13 +1,13 @@
 import Card from "@/components/custom/card";
+import Link from "next/link";
 
 const opportunities_cards = [
   {
-    title: "All Opportunities",
-    details: "View all your opportunities",
-    number: 12,
+    title: "Explore Opportunities",
+    details: "Explore new volunteering opportunities",
     button: {
-      title: "View",
-      href: "/volunteer/opportunity",
+      title: "Explore",
+      href: "/volunteer/opportunity/explore",
     },
   },
   {
