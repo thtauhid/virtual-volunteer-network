@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Virtual Volunteer Network
+
+A portal for all volunteer needs. From finding volunteers to finding volunteer opportunities, this is the place to be. VVN also provides Virtual Workspace for volunteers to collaborate and work together.
+
+Visit the website at [https://vvn.tauhid.dev/](https://vvn.tauhid.dev/)
+
+## Features
+
+- Volunteer
+  - Volunteer Registration
+  - Volunteer Login
+  - Volunteer Dashboard
+  - Volunteer Profile
+  - Volunteer Workspace
+  - Explore Volunteer Opportunities
+  - Apply for Volunteer Opportunities
+- Organization
+  - Organization Registration
+  - Organization Login
+  - Organization Dashboard
+  - Virtual Workspace
+  - Create Volunteer Opportunities
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Prisma](https://www.prisma.io/)
+- [Clerk](https://clerk.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Node.js](https://nodejs.org/en/)
+- [pnpm](https://pnpm.js.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/thtauhid/virtual-volunteer-network
+   ```
+2. Install packages
+   ```sh
+    pnpm install
+   ```
+3. Copy `.env.example` to `.env` and fill in the values
+   ```sh
+    cp .env.example .env
+   ```
+4. Run the app
+   ```sh
+    pnpm run dev
+   ```
+5. Visit [http://localhost:3000/](http://localhost:3000/)
