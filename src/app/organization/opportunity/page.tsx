@@ -1,19 +1,13 @@
 import OpportunityCard from "@/components/custom/opportunity_card";
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 
 export default async function OpportunityPage() {
-  const clerk_user = await currentUser();
-
-  const user = await prisma.user.findUnique({
-    where: {
-      clerkId: clerk_user?.id,
-    },
-  });
+  const { userId } = auth();
 
   const opportunities = await prisma.opportunity.findMany({
     where: {
-      ownerId: user?.id,
+      ownerId: userId!,
       is_deleted: false,
       is_active: true,
     },
