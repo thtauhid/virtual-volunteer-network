@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import {
+  ClerkLoaded,
   SignInButton,
   SignUpButton,
   SignedIn,
@@ -63,19 +64,21 @@ export default async function Header() {
         })}
       </div>
       <div className="text-white">
-        <SignedIn>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-        <SignedOut>
-          <div className="flex gap-2">
-            <Button>
-              <SignInButton mode="modal" />
-            </Button>
-            <Button>
-              <SignUpButton mode="modal" />
-            </Button>
-          </div>
-        </SignedOut>
+        <ClerkLoaded>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <div className="flex gap-2">
+              <Button>
+                <SignInButton mode="modal" />
+              </Button>
+              <Button>
+                <SignUpButton mode="modal" />
+              </Button>
+            </div>
+          </SignedOut>
+        </ClerkLoaded>
       </div>
     </div>
   );
