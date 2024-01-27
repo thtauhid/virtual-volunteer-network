@@ -1,5 +1,4 @@
 import Card from "@/components/custom/card";
-import Link from "next/link";
 
 const opportunities_cards = [
   {

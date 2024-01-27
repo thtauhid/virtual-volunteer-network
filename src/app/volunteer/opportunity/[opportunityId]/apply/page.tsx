@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import validator from "validator";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,9 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { stringToArray } from "@/lib/string";
 
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";

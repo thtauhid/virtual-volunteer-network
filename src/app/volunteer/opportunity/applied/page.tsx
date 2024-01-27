@@ -1,4 +1,3 @@
-import OpportunityCard from "@/components/custom/opportunity_card";
 import prisma from "@/lib/prisma";
 import DataTable from "./DataTable";
 import { auth } from "@clerk/nextjs";
