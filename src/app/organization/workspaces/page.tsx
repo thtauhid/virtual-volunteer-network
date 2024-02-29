@@ -15,13 +15,22 @@ export default async function WorkspaceDashboardPage() {
 
   return (
     <div className="border p-4 m-4">
-      <h1>Workspaces</h1>
+      <span className="flex items-center">
+        <h1>Workspaces</h1>{" "}
+        {workspaces.length !== 0 && (
+          <Link href={`/organization/workspaces/create`}>
+            <Button>Create New Workspace</Button>
+          </Link>
+        )}
+      </span>
       <p className="px-4">All your workspaces</p>
-
       {workspaces.length === 0 ? (
         <div className="p-4 text-gray-500 flex flex-col items-center gap-4">
           <FolderXIcon className="h-16 w-16" />
           <p>No workspace found</p>
+          <Link href={`/organization/workspaces/create`}>
+            <Button>Create New Workspace</Button>
+          </Link>
         </div>
       ) : (
         <div className="grid grid-cols-3">
