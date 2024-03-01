@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -64,8 +66,12 @@ const invoices = [
 ];
 
 import AddUserForm from "./AddUserForm";
+import { useParams } from "next/navigation";
 
 export default function WorkspaceMembers() {
+  const params = useParams<{ workspaceId: string }>();
+  console.log(params);
+
   return (
     <div className="border p-4 m-4">
       <span className="flex items-center">
@@ -82,7 +88,7 @@ export default function WorkspaceMembers() {
                 Add user to workspace
               </DialogDescription>
             </DialogHeader>
-            <AddUserForm />
+            <AddUserForm workspaceId={Number(params.workspaceId)} />
           </DialogContent>
         </Dialog>
       </span>

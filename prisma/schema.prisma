@@ -20,7 +20,7 @@ model User {
   id                      String                    @id @unique @default(uuid())
   user_type               UserType                  @default(not_assigned)
   name                    String?
-  email                   String?
+  email                   String
   phone                   String?
   address                 String?
   interests               String[]                  @default([])
