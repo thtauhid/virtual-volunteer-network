@@ -1,3 +1,10 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import prisma from "@/lib/prisma";
 
 import {
@@ -9,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import ConfirmCancel from "./ConfirmCancel";
 
 type Props = {
   workspaceId: number;
@@ -44,7 +52,17 @@ export default async function InvitedUsers(props: Props) {
               <TableCell>{user.user.name}</TableCell>
               <TableCell>{user.user.email}</TableCell>
               <TableCell>
-                <Button variant="destructive">Cancel</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="destructive">Cancel</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                      <DialogTitle>Delete Task</DialogTitle>
+                    </DialogHeader>
+                    <ConfirmCancel invite={user} />
+                  </DialogContent>
+                </Dialog>
               </TableCell>
             </TableRow>
           ))}
