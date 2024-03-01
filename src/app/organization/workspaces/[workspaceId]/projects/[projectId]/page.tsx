@@ -21,6 +21,12 @@ export default async function SingleProjectPage({
     },
   });
 
+  const assignables = await prisma.workspaceUserInvitation.findMany({
+    include: {
+      user: true,
+    },
+  });
+
   if (!project) {
     return <div>Project not found</div>;
   }
@@ -40,12 +46,18 @@ export default async function SingleProjectPage({
             <DialogHeader>
               <DialogTitle>Create New Task</DialogTitle>
             </DialogHeader>
-            <CreateNewTask projectId={Number(params.projectId)} />
+            <CreateNewTask
+              projectId={Number(params.projectId)}
+              assignables={assignables}
+            />
           </DialogContent>
         </Dialog>
       </span>
 
-      <TaskList projectId={Number(params.projectId)} />
+      <TaskList
+        projectId={Number(params.projectId)}
+        assignables={assignables}
+      />
     </div>
   );
 }

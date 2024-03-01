@@ -3,7 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import type { User, WorkspaceUserInvitation } from "@prisma/client";
+import type {
+  User,
+  WorkspaceUserInvitation,
+  ProjectTask,
+} from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -34,35 +38,36 @@ const formSchema = z.object({
 });
 
 type Props = {
-  projectId: number;
+  task: ProjectTask;
   assignables: (WorkspaceUserInvitation & { user: User })[];
 };
 
-export default function CreateNewTask(props: Props) {
+export default function EditTask(props: Props) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      details: "",
+      name: props.task.name,
+      details: props.task.details || "",
+      assignedId: props.task.assignedId || "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await fetch("/api/organization/workspaces/projects/task", {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify({
-        projectId: props.projectId,
+        id: props.task.id,
         ...values,
       }),
     });
 
     if (result.ok) {
       toast({
-        title: "Task Created",
-        description: "Task has been created successfully",
+        title: "Task Updated",
+        description: "Task has been updated successfully",
       });
 
       // Reload after 3 seconds
@@ -72,7 +77,7 @@ export default function CreateNewTask(props: Props) {
     } else {
       toast({
         title: "Failed",
-        description: "Failed to create task",
+        description: "Failed to update task",
       });
     }
   }

@@ -9,9 +9,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import EditTask from "./EditTask";
+import type { WorkspaceUserInvitation, User } from "@prisma/client";
 type Props = {
   projectId: number;
+  assignables: (WorkspaceUserInvitation & { user: User })[];
 };
 
 export default async function TaskList(props: Props) {
@@ -50,12 +66,20 @@ export default async function TaskList(props: Props) {
                     ? task.assigned.name
                     : task.assigned?.email
                   : "Unassigned"}
-                {/* 
-                TODO: Put assignment box here 
-                */}
               </TableCell>
               <TableCell className="space-x-2">
                 <Button className="bg-green-500">Mark as done</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-blue-400">Edit</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                      <DialogTitle>Update Task</DialogTitle>
+                    </DialogHeader>
+                    <EditTask task={task} assignables={props.assignables} />
+                  </DialogContent>
+                </Dialog>
                 <Button variant="destructive">Delete</Button>
               </TableCell>
             </TableRow>
