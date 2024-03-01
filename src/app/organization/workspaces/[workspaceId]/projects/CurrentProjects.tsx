@@ -27,7 +27,7 @@ export default async function InvitedUsers(props: Props) {
         >
           <div key={project.id} className="">
             <h2>{project.name}</h2>
-            <p>{project.details}</p>
+            <p className="px-4">{project.details}</p>
           </div>
         </Link>
       ))}

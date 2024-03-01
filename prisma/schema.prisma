@@ -125,13 +125,14 @@ model ProjectUser {
 
 // Project Tasks
 model ProjectTask {
-  id        Int      @id @default(autoincrement())
-  name      String
-  details   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  project   Project  @relation(fields: [projectId], references: [id])
-  projectId Int
+  id         Int      @id @default(autoincrement())
+  name       String
+  details    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  project    Project  @relation(fields: [projectId], references: [id])
+  projectId  Int
+  is_done    Boolean  @default(false)
+  assigned   User?    @relation(fields: [assignedId], references: [id])
+  assignedId String?
 }
