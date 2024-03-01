@@ -74,6 +74,7 @@ model Workspace {
   ownerId                 String
   WorkSpaceUser           WorkspaceUser[]
   WorkspaceUserInvitation WorkspaceUserInvitation[]
+  Project                 Project[]
 }
 
 model WorkspaceUser {
@@ -107,6 +108,8 @@ model Project {
   ownerId     String
   ProjectTask ProjectTask[]
   ProjectUser ProjectUser[]
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+  workspaceId Int
 }
 
 // Project Users
