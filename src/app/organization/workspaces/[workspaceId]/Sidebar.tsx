@@ -12,6 +12,10 @@ const links = [
     href: "/chat",
   },
   {
+    label: "Calls",
+    href: "/calls",
+  },
+  {
     label: "Settings",
     href: "/settings",
   },
