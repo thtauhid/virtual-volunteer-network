@@ -9,13 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   Dialog,
   DialogContent,
@@ -25,6 +19,8 @@ import {
 } from "@/components/ui/dialog";
 import EditTask from "./EditTask";
 import type { WorkspaceUserInvitation, User } from "@prisma/client";
+import ConfirmDone from "./ConfirmDone";
+import ConfirmDelete from "./ConfirmDelete";
 type Props = {
   projectId: number;
   assignables: (WorkspaceUserInvitation & { user: User })[];
@@ -58,29 +54,78 @@ export default async function TaskList(props: Props) {
         <TableBody>
           {tasks.map((task) => (
             <TableRow key={task.id}>
-              <TableCell>{task.name}</TableCell>
-              <TableCell>{task.details}</TableCell>
               <TableCell>
-                {task.assignedId
-                  ? task.assigned?.name
-                    ? task.assigned.name
-                    : task.assigned?.email
-                  : "Unassigned"}
+                {task.is_done ? (
+                  <span className="line-through">{task.name}</span>
+                ) : (
+                  task.name
+                )}
+              </TableCell>
+              <TableCell>
+                {task.is_done ? (
+                  <span className="line-through">{task.details}</span>
+                ) : (
+                  task.details
+                )}
+              </TableCell>
+              <TableCell>
+                {task.is_done ? (
+                  <span className="line-through">
+                    {task.assignedId
+                      ? task.assigned?.name
+                        ? task.assigned.name
+                        : task.assigned?.email
+                      : "Unassigned"}
+                  </span>
+                ) : task.assignedId ? (
+                  task.assigned?.name ? (
+                    task.assigned.name
+                  ) : (
+                    task.assigned?.email
+                  )
+                ) : (
+                  "Unassigned"
+                )}
               </TableCell>
               <TableCell className="space-x-2">
-                <Button className="bg-green-500">Mark as done</Button>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="bg-blue-400">Edit</Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle>Update Task</DialogTitle>
-                    </DialogHeader>
-                    <EditTask task={task} assignables={props.assignables} />
-                  </DialogContent>
-                </Dialog>
-                <Button variant="destructive">Delete</Button>
+                {!task.is_done && (
+                  <>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="bg-green-500">Mark as done</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Mark as done</DialogTitle>
+                        </DialogHeader>
+                        <ConfirmDone task={task} />
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="bg-blue-400">Edit</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Update Task</DialogTitle>
+                        </DialogHeader>
+                        <EditTask task={task} assignables={props.assignables} />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="destructive">Delete</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Delete Task</DialogTitle>
+                        </DialogHeader>
+                        <ConfirmDelete task={task} />
+                      </DialogContent>
+                    </Dialog>
+                  </>
+                )}
               </TableCell>
             </TableRow>
           ))}

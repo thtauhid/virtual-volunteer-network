@@ -37,3 +37,36 @@ export async function PATCH(request: Request) {
 
   return Response.json({ data: result });
 }
+
+export async function DELETE(request: Request) {
+  const req = await request.json();
+  console.log(req);
+
+  const result = await prisma.projectTask.delete({
+    where: {
+      id: req.id,
+    },
+  });
+
+  console.log({ result });
+
+  return Response.json({ data: result });
+}
+
+export async function PUT(request: Request) {
+  const req = await request.json();
+  console.log(req);
+
+  const result = await prisma.projectTask.update({
+    where: {
+      id: req.id,
+    },
+    data: {
+      is_done: req.is_done,
+    },
+  });
+
+  console.log({ result });
+
+  return Response.json({ data: result });
+}
