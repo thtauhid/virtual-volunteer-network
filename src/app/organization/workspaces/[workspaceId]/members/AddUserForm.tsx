@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -82,9 +81,6 @@ export default function AddUserForm(props: Props) {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  Please enter a title for your opportunity.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
