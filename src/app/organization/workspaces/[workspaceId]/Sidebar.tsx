@@ -8,10 +8,6 @@ const links = [
     href: "/projects",
   },
   {
-    label: "Chat",
-    href: "/chat",
-  },
-  {
     label: "Calls",
     href: "/calls",
   },

@@ -34,6 +34,7 @@ model User {
   ProjectTask             ProjectTask[]
   WorkspaceUserInvitation WorkspaceUserInvitation[]
   ProjectUser             ProjectUser[]
+  Call                    Call[]
 }
 
 model Opportunity {
@@ -135,4 +136,14 @@ model ProjectTask {
   is_done    Boolean  @default(false)
   assigned   User?    @relation(fields: [assignedId], references: [id])
   assignedId String?
+}
+
+model Call {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  has_started Boolean  @default(false)
+  has_ended   Boolean  @default(false)
 }
