@@ -21,6 +21,9 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
   const req = await request.json();
   console.log(req);
+  if (req.assignedId.length === 0) {
+    req.assignedId = null;
+  }
 
   const result = await prisma.projectTask.update({
     where: {

@@ -57,7 +57,8 @@ export default function AddUserForm(props: Props) {
     } else {
       toast({
         title: "Failed",
-        description: "Failed to invite user to the workspace",
+        description:
+          "Failed to invite user to the workspace. Check if user has an account.",
       });
     }
   }

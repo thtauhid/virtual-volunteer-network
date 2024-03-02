@@ -19,7 +19,6 @@ export default function WorkspaceMembers({
 }: {
   params: { workspaceId: string };
 }) {
-  // const params = useParams<{ workspaceId: string }>();
   console.table(params);
 
   return (

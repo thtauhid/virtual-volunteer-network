@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import type { User, WorkspaceUserInvitation } from "@prisma/client";
+import type { User, WorkspaceUser } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -35,7 +35,7 @@ const formSchema = z.object({
 
 type Props = {
   projectId: number;
-  assignables: (WorkspaceUserInvitation & { user: User })[];
+  assignables: (WorkspaceUser & { user: User })[];
 };
 
 export default function CreateNewTask(props: Props) {

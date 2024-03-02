@@ -21,7 +21,7 @@ export default async function SingleProjectPage({
     },
   });
 
-  const assignables = await prisma.workspaceUserInvitation.findMany({
+  const assignables = await prisma.workspaceUser.findMany({
     include: {
       user: true,
     },

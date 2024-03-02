@@ -18,12 +18,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import EditTask from "./EditTask";
-import type { WorkspaceUserInvitation, User } from "@prisma/client";
+import type { WorkspaceUser, User } from "@prisma/client";
 import ConfirmDone from "./ConfirmDone";
 import ConfirmDelete from "./ConfirmDelete";
 type Props = {
   projectId: number;
-  assignables: (WorkspaceUserInvitation & { user: User })[];
+  assignables: (WorkspaceUser & { user: User })[];
 };
 
 export default async function TaskList(props: Props) {
