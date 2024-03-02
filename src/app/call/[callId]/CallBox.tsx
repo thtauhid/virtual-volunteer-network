@@ -1,10 +1,10 @@
 "use client";
 
-import type { User, Call } from "@prisma/client";
+import type { User } from "@prisma/client";
 
 type Props = {
   user: User;
-  call: Call;
+  callId: string;
 };
 
 export default function CallBox(props: Props) {
@@ -15,7 +15,7 @@ export default function CallBox(props: Props) {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       413317072,
       "e7db0c3a5707800bc56afbb325adee57",
-      props.call.id.toString(),
+      props.callId,
       props.user.id,
       props.user.name ? props.user.name : props.user.email
     );
@@ -39,28 +39,6 @@ export default function CallBox(props: Props) {
         mode: ZegoUIKitPrebuilt.OneONoneCall,
       },
 
-      onJoinRoom: async () => {
-        await fetch(`/api/organization/workspaces/calls`, {
-          method: "POST",
-          body: JSON.stringify({
-            id: props.call.id,
-            has_started: true,
-            has_ended: false,
-          }),
-        });
-      },
-
-      onLeaveRoom: async () => {
-        await fetch(`/api/organization/workspaces/calls`, {
-          method: "POST",
-          body: JSON.stringify({
-            id: props.call.id,
-            has_started: true,
-            has_ended: true,
-          }),
-        });
-      },
-
       sharedLinks: [
         {
           name: "Personal link",
@@ -69,10 +47,10 @@ export default function CallBox(props: Props) {
             "//" +
             window.location.host +
             "/call/" +
-            props.call.id.toString(),
+            props.callId,
         },
       ],
     });
   };
-  return <div ref={myMeeting} className="h-[80vh]" />;
+  return <div ref={myMeeting} className="h-[94vh]" />;
 }

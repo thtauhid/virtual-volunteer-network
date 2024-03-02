@@ -11,6 +11,7 @@ import { FolderXIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ConfirmCancel from "./ConfirmCancel";
 import ConfirmAccept from "./ConfirmAccept";
+import Link from "next/link";
 
 export default async function WorkspacesDashboard() {
   const { userId } = auth();
@@ -21,6 +22,16 @@ export default async function WorkspacesDashboard() {
     },
     include: {
       workspace: true,
+    },
+  });
+
+  const workspaces = await prisma.workspace.findMany({
+    where: {
+      WorkSpaceUser: {
+        some: {
+          userId: userId!,
+        },
+      },
     },
   });
 
@@ -76,9 +87,33 @@ export default async function WorkspacesDashboard() {
           );
         })}
       </div>
-      <div className="p-4 text-gray-500 flex flex-col items-center gap-4">
-        <FolderXIcon className="h-16 w-16" />
-        <p>No workspace found</p>
+      <div>
+        {
+          // If there are no workspaces
+          workspaces.length > 0 ? (
+            <div>
+              {workspaces.map((workspace) => {
+                return (
+                  <Link
+                    key={workspace.id}
+                    href={`/volunteer/workspaces/${workspace.id}`}
+                    className="block border p-4 m-4 hover:bg-gray-200"
+                  >
+                    <div>
+                      <h3 className="font-bold">{workspace.name}</h3>
+                      <p>{workspace.details}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="p-4 text-gray-500 flex flex-col items-center gap-4">
+              <FolderXIcon className="h-16 w-16" />
+              <p>No workspace found</p>
+            </div>
+          )
+        }
       </div>
     </div>
   );
