@@ -19,7 +19,7 @@ export default async function WorkspaceCalls() {
 
   return (
     <div className="border p-4 m-4">
-      <h1>Create a call</h1>
+      <h1>Remote Meeting</h1>
       <CallBox user={user!} call={call} />
     </div>
   );

@@ -17,6 +17,9 @@ export default async function WorkspaceCalls() {
     where: {
       has_started: true,
       has_ended: false,
+      updatedAt: {
+        gte: new Date(Date.now() - 30 * 60 * 1000),
+      },
     },
   });
 
@@ -24,7 +27,7 @@ export default async function WorkspaceCalls() {
 
   return (
     <div className="border p-4 m-4">
-      <h1>Ongoing calls</h1>
+      <h1>Remote Meeting</h1>
       {calls.length === 0 ? (
         <div className="p-4 text-center">No ongoing calls</div>
       ) : (
@@ -35,7 +38,7 @@ export default async function WorkspaceCalls() {
               className="border p-4 m-4 flex items-center justify-between"
             >
               <h3 className="font-bold">Call Ongoing</h3>
-              <Link href={`http://localhost:3000/call/?roomID=${call.id}`}>
+              <Link href={`http://localhost:3000/call/${call.id}`}>
                 <Button>Join Call</Button>
               </Link>
             </div>

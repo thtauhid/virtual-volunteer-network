@@ -4,7 +4,7 @@ const cards = [
   {
     title: "All Opportunities",
     details: "View all your opportunities",
-    number: 12,
+    // number: 12,
     button: {
       title: "View",
       href: "/organization/opportunity",

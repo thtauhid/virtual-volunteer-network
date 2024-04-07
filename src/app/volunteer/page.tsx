@@ -30,9 +30,6 @@ export default function VolunteerDashboard() {
           <Card key={i} {...card} />
         ))}
       </div>
-
-      <h2 className="mt-4">Workspace</h2>
-      <p className="px-4 text-gray-500">No Workspace Found</p>
     </div>
   );
 }
