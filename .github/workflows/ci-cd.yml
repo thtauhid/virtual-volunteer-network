@@ -60,9 +60,9 @@ jobs:
         run: |
           pnpm exec prisma generate
 
-      - name: Start Server
+      - name: Build Next Project and Start Server
         run: |
-          PORT=3000 pnpm dev &
+          pnpm exec next build && PORT=3000 pnpm exec next start &
           sleep 5
 
           # Test the application
