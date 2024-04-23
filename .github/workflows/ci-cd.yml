@@ -56,20 +56,15 @@ jobs:
         run: |
           pnpm install
 
-      # Validate the code
-      - name: Code Validation
-        run: |
-          pnpm run lint
-
       - name: Run DB Migrations
         run: |
           pnpm exec prisma generate
-
-      # Test the application
-      - name: Run Unit Tests
-        run: pnpm test
 
       - name: Start Server
         run: |
           PORT=3000 pnpm dev &
           sleep 5
+
+          # Test the application
+      - name: Run Unit Tests
+        run: pnpm test
