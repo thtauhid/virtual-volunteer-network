@@ -14,7 +14,7 @@ env:
   PG_DATABASE: test
   PG_USER: postgres
   PG_PASSWORD: postgres
-  DATABASE_URL: postgres://postgres:postgres@postgres:5432/test
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
 
 jobs:
   # This steps runs eslint and tests the code
