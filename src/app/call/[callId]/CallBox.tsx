@@ -17,7 +17,7 @@ export default function CallBox(props: Props) {
       "e7db0c3a5707800bc56afbb325adee57",
       props.callId,
       props.user.id,
-      props.user.name ? props.user.name : props.user.email
+      props.user.name ? props.user.name : ""
     );
 
     const zp = ZegoUIKitPrebuilt.create(kitToken);
