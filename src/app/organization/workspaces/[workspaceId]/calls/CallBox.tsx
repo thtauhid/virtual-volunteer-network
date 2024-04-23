@@ -13,8 +13,8 @@ export default function CallBox(props: Props) {
       "@zegocloud/zego-uikit-prebuilt"
     );
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      413317072,
-      "e7db0c3a5707800bc56afbb325adee57",
+      1958862720,
+      "138f8e35306a795e0f249da21972be5e",
       props.call.id.toString(),
       props.user.id,
       props.user.name ? props.user.name : ""

@@ -49,14 +49,14 @@ export default async function Header() {
   }
 
   return (
-    <div className="bg-gray-600 p-4 flex justify-between items-center">
+    <div className="bg-blue-800 p-4 flex justify-between items-center">
       <div className="">
         {links.map(({ href, label }) => {
           return (
             <Link
               href={href}
               key={href}
-              className="p-5 mx-1 hover:bg-gray-700 text-white"
+              className="p-5 mx-1 hover:bg-blue-400 text-white"
             >
               {label}
             </Link>
