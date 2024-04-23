@@ -47,22 +47,22 @@ jobs:
         # Install dependencies
       - name: Install
         run: |
-          npm ci
+          pnpm ci
 
       # Validate the code
       - name: Code Validation
         run: |
-          npm run lint
+          pnpm run lint
 
       - name: Run DB Migrations
         run: |
-          npx prisma generate
+          pnpm exec prisma generate
 
       # Test the application
       - name: Run Unit Tests
-        run: npm test
+        run: pnpm test
 
       - name: Start Server
         run: |
-          PORT=3000 npm start &
+          PORT=3000 pnpm dev &
           sleep 5
