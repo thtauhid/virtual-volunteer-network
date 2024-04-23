@@ -7,7 +7,7 @@ name: CI CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
 
 # Environment variables for postgres database
 env:
