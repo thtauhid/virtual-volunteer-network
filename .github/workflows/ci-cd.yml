@@ -1,0 +1,75 @@
+name: CI CD Pipeline
+
+# Only run the CI/CD pipeline on the main branch
+# This is to prevent the pipeline from running on every branch
+# and only run when the main branch is updated
+# If development branches are used, the pipeline can be updated to include them
+on:
+  push:
+    branches:
+      - main
+
+# Environment variables for postgres database
+env:
+  PG_DATABASE: test
+  PG_USER: postgres
+  PG_PASSWORD: postgres
+
+jobs:
+  # This steps runs eslint and tests the code
+  # using jest and cypress
+  validate-test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Start postgres database
+      postgres:
+        # Docker Hub image
+        image: postgres:15
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+        # Install dependencies
+      - name: Install
+        run: |
+          npm ci
+
+      # Validate the code
+      - name: Code Validation
+        run: |
+          npm run lint
+
+      # Test the application
+      - name: Run Unit Tests
+        run: npm test
+
+      - name: Run DB Migrations
+        run: |
+          npx sequelize-cli db:drop
+          npx sequelize-cli db:create
+          npx sequelize-cli db:migrate
+
+      - name: Start Server
+        run: |
+          PORT=3000 npm start &
+          sleep 5
+
+      - name: Run integration tests
+        run: |
+          npm install cypress cypress-json-results
+          npx cypress run
