@@ -44,6 +44,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+        # Use pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
+
         # Install dependencies
       - name: Install
         run: |
