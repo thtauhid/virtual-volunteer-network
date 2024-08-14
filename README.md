@@ -2,7 +2,6 @@
 
 A portal for all volunteer needs. From finding volunteers to finding volunteer opportunities, this is the place to be. VVN also provides Virtual Workspace for volunteers to collaborate and work together.
 
-Visit the website at [https://vvn.tauhid.dev/](https://vvn.tauhid.dev/)
 
 ## Features
 
